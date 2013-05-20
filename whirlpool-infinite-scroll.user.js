@@ -5,8 +5,13 @@
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 // ==/UserScript==
 // Users
-var lastPage = null;
-var paging = false;
+var lastPage;
+var paging;
+$(document).ready(function() {
+		      lastPage = null;
+		      var paging = false;;
+		  });
+
 $(window).scroll(function() {
 		     if (!paging) {
 			 if($(window).scrollTop() + $(window).height() > $(document).height() - 500) {
@@ -15,7 +20,7 @@ $(window).scroll(function() {
 			     var idx = loc.lastIndexOf("&p=");
 			     if (lastPage == null) {
 				 var page = idx == -1 ? 1 : loc.substring(loc.lastIndexOf("&p=") + 3);
-				 lastPage = page + 1;
+				 lastPage = parseInt(page, 10) + 1;
 			     }
 			     var next = (idx == -1) ? loc : loc.substring(0, idx);
 			     next += "&p=" + lastPage++;
